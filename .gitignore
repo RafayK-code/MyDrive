@@ -16,3 +16,4 @@ Cargo.lock
 >>>>>>> 8a04926 (Initial commit)
 
 .env
+.vscode/
