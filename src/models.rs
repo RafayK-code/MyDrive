@@ -22,18 +22,27 @@ impl From<FileType> for Bson {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct File {
     #[serde(rename = "_id")]
-    pub id: String,
+    pub id: String, //Absolute path + file name
     pub name: String,
     pub file_type: FileType,
+    pub owner: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub children: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<Binary>,
-
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct User {
     #[serde(rename = "_id")]
     pub id: String,
+    pub friends: Vec<String>
+}
+
+pub struct NewFile {
+    pub name: String,
+    pub parent: Option<String>,
+    pub data: Option<Binary>,
 }

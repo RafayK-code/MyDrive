@@ -1,15 +1,23 @@
-use serde_json::json;
-
 extern crate mongodb;
 
 mod models;
 mod database;
+mod system;
 
-fn main() {
-    let huh = models::FileType::FILE;
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let db = database::Database::new("MONGODB_URI").await;
 
-    let json = serde_json::to_string(&huh).unwrap();
-    println!("{json}");
+    let v = db.get_contents("sentinelk", "root").await.unwrap();
+    for file in v {
+        println!("{:?}", file)
+    }
 
-    println!("Hello, world!");
+    db.add_file("sentinelk", "root", models::NewFile { 
+        name: "file3".to_owned(), 
+        parent: Some("root".to_owned()), 
+        data: None 
+    }).await;
+
+    Ok(())
 }
