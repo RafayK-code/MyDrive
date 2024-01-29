@@ -1,5 +1,5 @@
 use std::{env, io::{Error, ErrorKind}};
-use bson::{doc, oid::ObjectId};
+use bson::doc;
 use dotenv::dotenv;
 
 use mongodb::{Collection, options::{ClientOptions, ResolverConfig}, Client};
